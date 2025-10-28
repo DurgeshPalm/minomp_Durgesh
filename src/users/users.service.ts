@@ -149,7 +149,7 @@ export class UsersService {
       this.queryService.UserDeviceInfoQuery,
       [user.id, deviceInfo.deviceModel, deviceInfo.deviceType, deviceInfo.appVersion, deviceInfo.osVersion]
     );    
-          return { dresp_code: RespStatusCodes.Success,
+          return { resp_code: RespStatusCodes.Success,
             data : EmailChek };
         }
         else {

@@ -7,6 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ErrorLogModule } from './error-log/error-log.module';
 import { ProposalsModule } from './proposals/proposals.module';
 import { AuthanticationModule } from './authantication/authantication.module';
+import { NotificationsController } from './notifications/notifications.controller';
+import { NotificationsService } from './notifications/notifications.service';
+import { NotificationsModule } from './notifications/notifications.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [UsersModule,ConfigModule.forRoot({ isGlobal: true }),
@@ -24,8 +28,8 @@ import { AuthanticationModule } from './authantication/authantication.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true, 
-    }),ErrorLogModule, ProposalsModule, AuthanticationModule,],
-  controllers: [AppController],
-  providers: [AppService],
+    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule,],
+  controllers: [AppController, NotificationsController],
+  providers: [AppService, NotificationsService],
 })
 export class AppModule {}

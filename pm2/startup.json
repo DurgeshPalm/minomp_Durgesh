@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "NeuBall-NodeJS",
+      "name": "Minomp-NodeJS",
       "script": "./index.js",
       "args": "start",
       "exec_interpreter": "node",
