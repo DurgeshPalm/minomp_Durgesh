@@ -11,6 +11,9 @@ import { NotificationsController } from './notifications/notifications.controlle
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { TodosController } from './todos/todos.controller';
+import { TodosService } from './todos/todos.service';
+import { TodosModule } from './todos/todos.module';
 
 @Module({
   imports: [UsersModule,ConfigModule.forRoot({ isGlobal: true }),
@@ -28,8 +31,8 @@ import { FirebaseModule } from './firebase/firebase.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true, 
-    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule,],
-  controllers: [AppController, NotificationsController],
-  providers: [AppService, NotificationsService],
+    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule,],
+  controllers: [AppController, NotificationsController, TodosController],
+  providers: [AppService, NotificationsService, TodosService],
 })
 export class AppModule {}
