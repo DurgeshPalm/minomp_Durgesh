@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
 import { SendNotificationDto } from './dto/send-notification.dto';
 import * as admin from 'firebase-admin';
-import { RespDesc, RespStatusCodes } from '../../src/common/constants/app.messages';
+import { RespDesc, RespStatusCodes } from '../common/constants/app.messages';
 
 @Injectable()
 export class NotificationsService {
