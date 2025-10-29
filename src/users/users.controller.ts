@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UsePipes, ValidationPipe ,UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FindParentChildDto } from './dto/findParentChild.dto';
+import { AuthGuardGuard } from '../Global/auth-guard/auth-guard.guard'
 
 @Controller('users')
 export class UsersController {
@@ -35,6 +36,7 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
+  @UseGuards(AuthGuardGuard) // ✅ Apply Guard
   @Post('/login')
   async login(
     @Body('email') email: string,

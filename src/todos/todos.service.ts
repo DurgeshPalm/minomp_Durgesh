@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, QueryRunner } from 'typeorm';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { RespDesc, RespStatusCodes } from '../../src/common/constants/app.messages';
 
 @Injectable()
 export class TodosService {
@@ -19,11 +20,11 @@ export class TodosService {
       await queryRunner.query(query, [title, description || '', false]);
 
       await queryRunner.commitTransaction();
-      return { resp_code: 1, resp_message: 'Todo created successfully' };
+      return { resp_code: RespStatusCodes.Success ,resp_message: RespDesc.Success };
     } catch (error) {
       console.error('Error creating todo:', error);
       await queryRunner.rollbackTransaction();
-      return { resp_code: 0, resp_message: 'Something went wrong' };
+      return { resp_code: RespStatusCodes.Failed, resp_message: RespDesc.Failed };
     } finally {
       await queryRunner.release();
     }
@@ -43,13 +44,13 @@ export class TodosService {
       }));
 
       return {
-        resp_code: 1,
-        resp_message: 'Todos fetched successfully',
+        resp_code: RespStatusCodes.Success,
+        resp_message: RespDesc.Success,
         data: formattedTodos,
       };
     } catch (error) {
       console.error('Error fetching todos:', error);
-      return { resp_code: 0, resp_message: 'Something went wrong' };
+      return { resp_code: RespStatusCodes.Failed, resp_message: RespDesc.Failed };
     }
   }
 
@@ -87,11 +88,11 @@ export class TodosService {
       await queryRunner.query(query, params);
       await queryRunner.commitTransaction();
 
-      return { resp_code: 1, resp_message: 'Todo updated successfully' };
+      return { resp_code: RespStatusCodes.Success, resp_message: RespDesc.Success };
     } catch (error) {
       console.error('Error updating todo:', error);
       await queryRunner.rollbackTransaction();
-      return { resp_code: 0, resp_message: 'Something went wrong' };
+      return { resp_code:RespStatusCodes.Failed, resp_message: RespDesc.Failed };
     } finally {
       await queryRunner.release();
     }
@@ -106,11 +107,11 @@ export class TodosService {
     try {
       await queryRunner.query(`DELETE FROM todos WHERE id = ?`, [id]);
       await queryRunner.commitTransaction();
-      return { resp_code: 1, resp_message: 'Todo deleted successfully' };
+      return { resp_code: RespStatusCodes.Success, resp_message: RespDesc.Success };
     } catch (error) {
       console.error('Error deleting todo:', error);
       await queryRunner.rollbackTransaction();
-      return { resp_code: 0, resp_message: 'Something went wrong' };
+      return { resp_code:RespStatusCodes.Failed, resp_message: RespDesc.Failed};
     } finally {
       await queryRunner.release();
     }

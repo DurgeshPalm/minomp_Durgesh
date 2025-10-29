@@ -20,7 +20,7 @@ export class UsersService {
   async createUser(createUserDto: CreateUserDto) {
     const { name, email, password, mobileno, country_code_id, role, connectionid } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ email,mobileno }, SECRET_KEY, { expiresIn: '1h' });
     const validCountryCodeId = country_code_id == null ? null : Number(country_code_id);
     const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();

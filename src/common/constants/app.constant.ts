@@ -1,1 +1,1 @@
-export const SECRET_KEY ='a-string-secret-at-least-256-bits-long';
+export const SECRET_KEY ='qwertyuiopasdfghjkl';
