@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, QueryRunner } from 'typeorm';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { RespDesc, RespStatusCodes } from '../../src/common/constants/app.messages';
+import { RespDesc, RespStatusCodes } from '../common/constants/app.messages';
 
 @Injectable()
 export class TodosService {
