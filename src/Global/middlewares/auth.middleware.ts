@@ -17,7 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     try {
-      const decoded = jwt.verify(token, 'a-string-secret-at-least-256-bits-long');
+      const decoded = jwt.verify(token, 'qwertyuiopasdfghjkl');
       req.user = decoded; 
       next();
     } catch (error) {

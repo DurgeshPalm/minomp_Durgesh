@@ -3,6 +3,7 @@ import { DataSource, QueryRunner } from 'typeorm';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { RespDesc, RespStatusCodes } from '../common/constants/app.messages';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class TodosService {
@@ -31,13 +32,19 @@ export class TodosService {
   }
 
   // ✅ Fetch all todos (convert 0/1 → boolean)
-  async findAll() {
+ async findAll(paginationDto: PaginationDto) {
     try {
-      const todos = await this.dataSource.query(
-        `SELECT * FROM todos ORDER BY created_at DESC`,
-      );
+      const { page = 1, limit = 10 } = paginationDto;
+      const offset = (page - 1) * limit;
 
-      // 🔁 Convert numeric completed -> boolean
+      const [todos, total] = await Promise.all([
+        this.dataSource.query(
+          `SELECT * FROM todos ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+          [limit, offset],
+        ),
+        this.dataSource.query(`SELECT COUNT(*) as count FROM todos`),
+      ]);
+
       const formattedTodos = todos.map((todo: any) => ({
         ...todo,
         completed: Boolean(todo.completed),
@@ -47,13 +54,18 @@ export class TodosService {
         resp_code: RespStatusCodes.Success,
         resp_message: RespDesc.Success,
         data: formattedTodos,
+        pagination: {
+          total: Number(total[0].count),
+          page,
+          limit,
+          totalPages: Math.ceil(total[0].count / limit),
+        },
       };
     } catch (error) {
       console.error('Error fetching todos:', error);
       return { resp_code: RespStatusCodes.Failed, resp_message: RespDesc.Failed };
     }
   }
-
   // ✅ Update a todo
   async update(id: number, updateTodoDto: UpdateTodoDto) {
     const queryRunner = this.dataSource.createQueryRunner();

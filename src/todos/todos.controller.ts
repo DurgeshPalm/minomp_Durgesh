@@ -12,6 +12,7 @@ import {
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Controller('todos')
 export class TodosController {
@@ -23,9 +24,9 @@ export class TodosController {
     return this.todosService.create(createTodoDto);
   }
 
-  @Get()
-  findAll() {
-    return this.todosService.findAll();
+ @Post('list')
+  findAll(@Body() paginationDto: PaginationDto) {
+    return this.todosService.findAll(paginationDto);
   }
 
   @Patch(':id')
