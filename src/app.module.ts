@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -14,9 +15,14 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { TodosController } from './todos/todos.controller';
 import { TodosService } from './todos/todos.service';
 import { TodosModule } from './todos/todos.module';
+import { CronController } from './cron/cron.controller';
+import { CronService } from './cron/cron.service';
+import { CronModule } from './cron/cron.module';
+import { MailModule } from './Global/services/mail.module';
+
 
 @Module({
-  imports: [UsersModule,ConfigModule.forRoot({ isGlobal: true }),
+  imports: [UsersModule,ConfigModule.forRoot({ isGlobal: true },), ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       // host: process.env.DB_HOST || 'localhost',
@@ -31,8 +37,8 @@ import { TodosModule } from './todos/todos.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true, 
-    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule,],
-  controllers: [AppController, NotificationsController, TodosController],
-  providers: [AppService, NotificationsService, TodosService],
+    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule, CronModule,MailModule],
+  controllers: [AppController, NotificationsController, TodosController, CronController],
+  providers: [AppService, NotificationsService, TodosService, CronService],
 })
 export class AppModule {}
