@@ -18,7 +18,7 @@ import { TodosModule } from './todos/todos.module';
 import { CronController } from './cron/cron.controller';
 import { CronService } from './cron/cron.service';
 import { CronModule } from './cron/cron.module';
-import { MailModule } from './Global/services/mail.module';
+import { CommonModule } from './Global/services/common.module';
 
 
 @Module({
@@ -37,7 +37,7 @@ import { MailModule } from './Global/services/mail.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true, 
-    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule, CronModule,MailModule],
+    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule, CronModule,CommonModule],
   controllers: [AppController, NotificationsController, TodosController, CronController],
   providers: [AppService, NotificationsService, TodosService, CronService],
 })

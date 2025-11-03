@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Logger,
   BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
@@ -36,6 +37,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
       });
     }
 
+       if (exception instanceof UnauthorizedException) {
+      this.logger.warn(
+        `Unauthorized Access: [${request.method}] ${request.url}`,
+      );
+      return response.status(HttpStatus.UNAUTHORIZED).json({
+        resp_code: HttpStatus.UNAUTHORIZED,
+        resp_message: 'Unauthorized Access',
+        errors: ['Invalid or expired authentication token.'],
+      });
+    }
     // Handle standard HttpException errors
     if (exception instanceof HttpException) {
       const status = exception.getStatus();

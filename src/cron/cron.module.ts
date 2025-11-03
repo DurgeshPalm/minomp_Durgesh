@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CronService } from './cron.service';
 import { CronController } from './cron.controller';
-import { MailModule } from '../Global/services/mail.module'; // adjust path to your mail module
 import { ScheduleModule } from '@nestjs/schedule';
+import { CommonModule } from '../Global/services/common.module';
 
 @Module({
-  imports: [ScheduleModule,MailModule],
+  imports: [ScheduleModule,CommonModule],
   providers: [CronService],
   controllers: [CronController],
   exports: [CronService],
