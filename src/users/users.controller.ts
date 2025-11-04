@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FindParentChildDto } from './dto/findParentChild.dto';
 import { AuthGuardGuard } from '../Global/auth-guard/auth-guard.guard'
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Controller('users')
 export class UsersController {
@@ -36,7 +37,7 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @UseGuards(AuthGuardGuard) // ✅ Apply Guard
+  // @UseGuards(AuthGuardGuard) // ✅ Apply Guard
   @Post('/login')
   async login(
     @Body('email') email: string,
@@ -81,4 +82,9 @@ export class UsersController {
   async findParentChild(@Body() findDto: FindParentChildDto) {
     return await this.usersService.findParentChild(findDto);
   }
+
+@Post('refresh-token')
+async refreshToken(@Body() refreshtokendto: RefreshTokenDto ) {
+  return this.usersService.refreshToken(refreshtokendto);
+}
 }

@@ -7,8 +7,9 @@ import { QueryService } from './users.query';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { SECRET_KEY } from '../common/constants/app.constant';
-import { LogMessage, LogMessageType,RespStatusCodes } from '../common/constants/app.messages';
+import { LogMessage, LogMessageType,RespDesc,RespStatusCodes } from '../common/constants/app.messages';
 import { FindParentChildDto } from './dto/findParentChild.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Injectable()
 export class UsersService {
@@ -82,17 +83,17 @@ export class UsersService {
         }
       }
       // Generate JWT and refresh token after user creation
-      const token = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '1h' });
-      const refreshToken = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '7d' });
+      // const token = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '1h' });
+      // const refreshToken = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '7d' });
       // Update user record with tokens
-      await queryRunner.query(
-        `UPDATE users SET token = ?, refresh_token = ? WHERE id = ?`,
-        [token, refreshToken, userId]
-      );
+      // await queryRunner.query(
+      //   `UPDATE users SET token = ?, refresh_token = ? WHERE id = ?`,
+      //   [token, refreshToken, userId]
+      // );
       await queryRunner.commitTransaction();
       return { 
         resp_code: RespStatusCodes.Success,
-        message: LogMessage.USER_CREATED_SUCCESSFULLY, token, refreshToken, userId, role };
+        message: LogMessage.USER_CREATED_SUCCESSFULLY, userId, role };
     } catch (error) {
       console.error(LogMessage.Something_went_wrong, error);
       await queryRunner.rollbackTransaction();
@@ -101,78 +102,130 @@ export class UsersService {
     }
   }
 
-  async login(email: string | null, password: string,mobileNo: string | null,country_code_id: Number | null | string): Promise<any> {
-    const validCountryCodeId = !country_code_id || country_code_id === '' ? null : Number(country_code_id);
-    const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      const deviceInfo = {
-        deviceModel: '16 Pro',
-        deviceType: 'ios',   
-        appVersion: '1.0.0',    
-        osVersion: '16' 
+async login(
+  email: string | null,
+  password: string,
+  mobileNo: string | null,
+  country_code_id: number | null | string
+): Promise<any> {
+  const validCountryCodeId = !country_code_id || country_code_id === '' ? null : Number(country_code_id);
+  const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  const deviceInfo = {
+    deviceModel: '16 Pro',
+    deviceType: 'ios',
+    appVersion: '1.0.0',
+    osVersion: '16',
+  };
+
+  try {
+    const generateTokens = async (user: any) => {
+      const token = jwt.sign(
+        { id: user.id, email: user.email, mobileno: user.mobileno, role: user.role },
+        SECRET_KEY,
+        { expiresIn: '1h' }
+      );
+
+      const refreshToken = jwt.sign(
+        { id: user.id, email: user.email, mobileno: user.mobileno, role: user.role },
+        SECRET_KEY,
+        { expiresIn: '7d' }
+      );
+
+      await queryRunner.query(
+        `UPDATE users SET token = ?, refresh_token = ? WHERE id = ?`,
+        [token, refreshToken, user.id]
+      );
+
+      return { token, refreshToken };
+    };
+    const processLogin = async (user: any, password: string) => {
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return {
+          resp_code: RespStatusCodes.Failed,
+          message: LogMessage.INVALID_CREDENTIALS,
+        };
+      }
+
+      await queryRunner.query(this.queryService.UserDeviceInfoQuery, [
+        user.id,
+        deviceInfo.deviceModel,
+        deviceInfo.deviceType,
+        deviceInfo.appVersion,
+        deviceInfo.osVersion,
+      ]);
+
+      const { token, refreshToken } = await generateTokens(user);
+
+      return {
+        resp_code: RespStatusCodes.Success,
+        data: [user],
+        token,
+        refreshToken,
       };
-      if(mobileNo){
-        if(!validCountryCodeId){
-          return { 
-            resp_code: RespStatusCodes.Failed,
-            message: LogMessage.valid_country_code };
+    };
+    if (mobileNo) {
+      if (!validCountryCodeId) {
+        return {
+          resp_code: RespStatusCodes.Failed,
+          message: LogMessage.valid_country_code,
+        };
       }
+
       const countryCodeCheck = await queryRunner.query(
-      this.queryService.checkCountryCodeQuery,[validCountryCodeId]);
-        if (countryCodeCheck.length === 0) {
-          return { resp_code: RespStatusCodes.Failed,
-            message: LogMessage.valid_country_code };
-        }
-        const mobileNumberCheck = await queryRunner.query(
-          this.queryService.checkUserMobilenoQuery,[mobileNo]);
-            if (mobileNumberCheck.length > 0) {
-              const user = mobileNumberCheck[0]; 
-              if (!user || !await bcrypt.compare(password, user.password)) {
-                  return { resp_code: RespStatusCodes.Failed,
-                    message: LogMessage.INVALID_CREDENTIALS };
-              }
-              await queryRunner.query(
-                this.queryService.UserDeviceInfoQuery,
-                [user.id, deviceInfo.deviceModel, deviceInfo.deviceType, deviceInfo.appVersion, deviceInfo.osVersion]
-              );   
-              return { resp_code: RespStatusCodes.Success,
-                data: mobileNumberCheck };
-            }
+        this.queryService.checkCountryCodeQuery,
+        [validCountryCodeId]
+      );
+
+      if (countryCodeCheck.length === 0) {
+        return {
+          resp_code: RespStatusCodes.Failed,
+          message: LogMessage.valid_country_code,
+        };
       }
-      if(email){
-        const EmailChek = await queryRunner.query(
-        this.queryService.checkUserEmailQuery,[email]);
-        if (EmailChek.length > 0) {
-          const user = EmailChek[0]; 
-        if (!user || !await bcrypt.compare(password, user.password)) {
-        return { resp_code: RespStatusCodes.Failed,
-          message: LogMessage.INVALID_CREDENTIALS };
+
+      const mobileNumberCheck = await queryRunner.query(
+        this.queryService.checkUserMobilenoQuery,
+        [mobileNo]
+      );
+
+      if (mobileNumberCheck.length > 0) {
+        const user = mobileNumberCheck[0];
+        return await processLogin(user, password);
+      }
+
+      return {
+        resp_code: RespStatusCodes.Failed,
+        message: LogMessage.USER_NOT_FOUND,
+      };
     }
-    await queryRunner.query(
-      this.queryService.UserDeviceInfoQuery,
-      [user.id, deviceInfo.deviceModel, deviceInfo.deviceType, deviceInfo.appVersion, deviceInfo.osVersion]
-    );    
-          return { resp_code: RespStatusCodes.Success,
-            data : EmailChek };
-        }
-        else {
-          return { resp_code: RespStatusCodes.Failed,
-            message: LogMessage.USER_NOT_FOUND };
-        }
+    if (email) {
+      const emailCheck = await queryRunner.query(this.queryService.checkUserEmailQuery, [email]);
+
+      if (emailCheck.length > 0) {
+        const user = emailCheck[0];
+        return await processLogin(user, password);
       }
-      if (!email && !mobileNo) {
-        return { resp_code: RespStatusCodes.Failed,
-          message: LogMessage.email_or_mobileno_required };
-      }
- } catch (error) {
+
+      return {
+        resp_code: RespStatusCodes.Failed,
+        message: LogMessage.USER_NOT_FOUND,
+      };
+    }
+    return {
+      resp_code: RespStatusCodes.Failed,
+      message: LogMessage.email_or_mobileno_required,
+    };
+  } catch (error) {
     console.error(LogMessage.Something_went_wrong, error);
     await queryRunner.rollbackTransaction();
   } finally {
     await queryRunner.release();
   }
 }
+
 
 async getCountryCode()
 {
@@ -275,4 +328,60 @@ catch (error) {
 }
 
 }
+
+  async refreshToken(refreshtokendto:RefreshTokenDto): Promise<any> {
+    const { userId, refreshToken } = refreshtokendto;
+    const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+
+    try {
+      const userResult = await queryRunner.query(
+        'SELECT id, email, mobileno, role, refresh_token FROM users WHERE id = ?',
+        [userId]
+      );
+      const user = userResult[0];
+      if (!user) {
+        return { resp_code: RespStatusCodes.Failed, message: LogMessage.USER_NOT_FOUND };
+      }
+
+      if (user.refresh_token !== refreshToken) {
+        return { resp_code: RespStatusCodes.Failed, message: 'Invalid refresh token' };
+      }
+      try {
+        jwt.verify(refreshToken, SECRET_KEY);
+      } catch (err) {
+        return { resp_code: RespStatusCodes.Failed, message: 'Refresh token expired or invalid' };
+      }
+      const newAccessToken = jwt.sign(
+        { id: user.id, email: user.email, mobileno: user.mobileno, role: user.role },
+        SECRET_KEY,
+        { expiresIn: '15m' } // Short-lived access token
+      );
+      const newRefreshToken = jwt.sign(
+        { id: user.id, email: user.email, mobileno: user.mobileno, role: user.role },
+        SECRET_KEY,
+        { expiresIn: '7d' }
+      );
+
+      // Optionally: Hash new refresh token before storing
+      // const hashedRefreshToken = await bcrypt.hash(newRefreshToken, 10);
+
+      await queryRunner.query(
+        'UPDATE users SET token = ?, refresh_token = ? WHERE id = ?',
+        [newAccessToken, newRefreshToken, user.id]
+        // [newAccessToken, hashedRefreshToken, user.id] // If hashing
+      );
+
+      return {
+        resp_code: RespStatusCodes.Success,
+        message: 'Token refreshed successfully',
+        token: newAccessToken,
+        refreshToken: newRefreshToken,
+        userId: user.id,
+        role: user.role
+      };
+    } finally {
+      await queryRunner.release();
+    }
+  }
 }
