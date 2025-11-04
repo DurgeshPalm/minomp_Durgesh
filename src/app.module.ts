@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { RequestMiddleware } from './Global/middlewares/auth.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ErrorLogModule } from './error-log/error-log.module';
@@ -25,11 +26,6 @@ import { CommonModule } from './Global/services/common.module';
   imports: [UsersModule,ConfigModule.forRoot({ isGlobal: true },), ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      // host: process.env.DB_HOST || 'localhost',
-      // port: Number(process.env.DB_PORT) || 3306,
-      // username: process.env.DB_USER || 'root',
-      // password: process.env.DB_PASS || 'Palm@123',
-      // database: process.env.DB_NAME || 'testdb',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
@@ -41,4 +37,10 @@ import { CommonModule } from './Global/services/common.module';
   controllers: [AppController, NotificationsController, TodosController, CronController],
   providers: [AppService, NotificationsService, TodosService, CronService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RequestMiddleware)
+      .forRoutes('users/login');
+  }
+}

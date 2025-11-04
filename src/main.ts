@@ -5,6 +5,8 @@ import { ErrorLogService } from './error-log/error-log.service';
 import { ApiLoggingInterceptor } from './Global/interceptors/api-logging.interceptor';
 import { HttpExceptionFilter } from './Global/filters/http-exception.filter';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { LogExceptionFilter } from './Global/filters/log-exception.filter';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +26,8 @@ async function bootstrap() {
   }));
   const errorLogService = app.get(ErrorLogService);
   app.useGlobalInterceptors(new ApiLoggingInterceptor(errorLogService));
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter(errorLogService));
+  // app.useGlobalFilters(new LogExceptionFilter(errorLogService));
 
   const config = new DocumentBuilder()
   .setTitle('MINOMP')

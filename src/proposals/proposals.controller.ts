@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put, UseGuards } from '@nestjs/common';
 import { ProposalsService } from './proposals.service';
 import { CreateProposalDto } from './dto/create-proposal.dto';
 import { UpdateProposalDto } from './dto/update-proposal.dto';
@@ -10,6 +10,8 @@ import { AcceptRejectProposalDto } from './dto/accept-reject.dto';
 import { RewardReceivedStatusDto } from './dto/reward-received.dto';
 import { ProposalDetailDto } from './dto/proposal-detail.dto';
 import { TimeTrackerDto } from './dto/time-track.dto';
+import { AuthGuardGuard } from '../Global/auth-guard/auth-guard.guard';
+import { ParentRoleGuard } from '../Global/guards/parent-role.guard';
 
 @Controller('proposals')
 export class ProposalsController {
@@ -39,6 +41,7 @@ async getRewards(@Query() query: GetRewardsDto) {
     }
     
     @Put('accept-reject')
+    @UseGuards(AuthGuardGuard,ParentRoleGuard)
     async acceptRejectProposal(@Body() acceptRejectProposalDto: AcceptRejectProposalDto) {
         return this.proposalsService.acceptRejectProposal(acceptRejectProposalDto);
     }

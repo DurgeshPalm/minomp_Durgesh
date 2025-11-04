@@ -20,7 +20,6 @@ export class UsersService {
   async createUser(createUserDto: CreateUserDto) {
     const { name, email, password, mobileno, country_code_id, role, connectionid } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const token = jwt.sign({ email,mobileno }, SECRET_KEY, { expiresIn: '1h' });
     const validCountryCodeId = country_code_id == null ? null : Number(country_code_id);
     const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -68,7 +67,7 @@ export class UsersService {
       
       const result = await queryRunner.query(
         this.queryService.addNewUserQuery,
-        [name, email || null, hashedPassword,role,validCountryCodeId,mobileno || null, token]
+        [name, email || null, hashedPassword,role,validCountryCodeId,mobileno || null, null] 
       );
       const userId = result.insertId;
       await queryRunner.query(
@@ -82,12 +81,18 @@ export class UsersService {
           await queryRunner.query(this.queryService.parentkidmapping, [userId, connectionid]);
         }
       }
-    
+      // Generate JWT and refresh token after user creation
+      const token = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '1h' });
+      const refreshToken = jwt.sign({ id: userId, email, mobileno, role }, SECRET_KEY, { expiresIn: '7d' });
+      // Update user record with tokens
+      await queryRunner.query(
+        `UPDATE users SET token = ?, refresh_token = ? WHERE id = ?`,
+        [token, refreshToken, userId]
+      );
       await queryRunner.commitTransaction();
-      console.log(result);
       return { 
         resp_code: RespStatusCodes.Success,
-        message: LogMessage.USER_CREATED_SUCCESSFULLY, token , userId ,role};
+        message: LogMessage.USER_CREATED_SUCCESSFULLY, token, refreshToken, userId, role };
     } catch (error) {
       console.error(LogMessage.Something_went_wrong, error);
       await queryRunner.rollbackTransaction();

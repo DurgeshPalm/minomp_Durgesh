@@ -9,7 +9,8 @@ export enum TableUsersEntity {
     mobileNo = 'mobileno',
     isDeleted = 'is_deleted',
     token = 'token',
-    languageId = 'language_id'
+    languageId = 'language_id',
+    refreshToken = 'refresh_token'
 }
 
 export enum TableProposalsEntity {

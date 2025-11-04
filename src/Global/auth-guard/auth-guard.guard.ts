@@ -21,15 +21,25 @@ export class AuthGuardGuard implements CanActivate {
 
     try {
       // ✅ Verify JWT Token
-      const decoded = jwt.verify(token, SECRET_KEY);
+      const decoded: any = jwt.verify(token, SECRET_KEY);
       // Attach user data to request (useful later)
-      console.log("payload JWT",decoded,request);
-      
       (request as any).user = decoded;
+
+      // Industry-level: Ensure token belongs to the user making the request
+      // Try to get userId from request (body, params, query)
+      const userIdFromToken = decoded.id;
+      const userIdFromRequest =
+        request.body?.userid ||
+        request.params?.userid ||
+        request.query?.userid;
+
+      if (userIdFromRequest && userIdFromToken !== userIdFromRequest) {
+        throw new UnauthorizedException('Token does not belong to this user');
+      }
+
       return true;
-    } catch (error) {      
-      throw new UnauthorizedException('Invalid or expired token',error);
-      
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired token', error);
     }
   }
 }

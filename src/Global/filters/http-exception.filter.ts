@@ -7,21 +7,24 @@ import {
   Logger,
   BadRequestException,
   UnauthorizedException,
+  ForbiddenException,
+  Injectable,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
+import { ErrorLogService } from '../../error-log/error-log.service';
 
 @Catch()
+@Injectable()
 export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
 
-  catch(exception: unknown, host: ArgumentsHost) {
+  constructor(private readonly errorLogService: ErrorLogService) {}
+
+  async catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-
-    console.error('Exception occurred:', exception);
-
     // Handle DTO validation errors
     if (exception instanceof BadRequestException) {
       const errorResponse = exception.getResponse() as {
@@ -31,20 +34,43 @@ export class HttpExceptionFilter implements ExceptionFilter {
       };
 
       return response.status(HttpStatus.BAD_REQUEST).json({
-        resp_code: errorResponse.resp_code || 400,
+        resp_code: HttpStatus.BAD_REQUEST || 400,
         resp_message: errorResponse.resp_message || 'Validation Failed',
         errors: errorResponse.errors || ['validation error'],
       });
     }
 
-       if (exception instanceof UnauthorizedException) {
-      this.logger.warn(
-        `Unauthorized Access: [${request.method}] ${request.url}`,
+    if (exception instanceof UnauthorizedException) {
+      // Insert log for UnauthorizedException
+      await this.errorLogService.logApiCall(
+        request.url,
+        request.method,
+        request.body,
+        'Authentication Failed',
+        true,
+        (request as any).user?.id || null,
       );
       return response.status(HttpStatus.UNAUTHORIZED).json({
         resp_code: HttpStatus.UNAUTHORIZED,
-        resp_message: 'Unauthorized Access',
+        resp_message: 'Authentication Failed',
         errors: ['Invalid or expired authentication token.'],
+      });
+    }
+
+    if (exception instanceof ForbiddenException) {
+      // Insert log for ForbiddenException
+      await this.errorLogService.logApiCall(
+        request.url,
+        request.method,
+        request.body,
+        'Unauthorized Access',
+        true,
+        (request as any).user?.id || null,
+      );
+      return response.status(HttpStatus.FORBIDDEN).json({
+        resp_code: HttpStatus.FORBIDDEN,
+        resp_message: 'Unauthorized Access',
+        errors: ['Only parents can access this endpoint'],
       });
     }
     // Handle standard HttpException errors
