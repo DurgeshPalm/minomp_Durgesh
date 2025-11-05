@@ -1,3 +1,4 @@
+import { Express } from 'express'; 
 import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { Injectable } from "@nestjs/common/decorators/core";
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,6 +11,8 @@ import { SECRET_KEY } from '../common/constants/app.constant';
 import { LogMessage, LogMessageType,RespDesc,RespStatusCodes } from '../common/constants/app.messages';
 import { FindParentChildDto } from './dto/findParentChild.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { PhotoPaginationDto } from './dto/photo-pagination.dto';
+// import { Express } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -384,4 +387,90 @@ catch (error) {
       await queryRunner.release();
     }
   }
+
+  async uploadUserPhoto(userId: number, file: Express.Multer.File) {
+  if (!file) {
+    return {
+      resp_code: 400,
+      message: 'No image provided',
+    };
+  }
+
+  const queryRunner = this.dataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try {
+    // Check if user exists
+    const user = await queryRunner.query(
+      `SELECT id FROM users WHERE id = ? AND is_deleted = 0`, [userId]
+    );
+
+    if (user.length === 0) {
+      return { resp_code: 404, message: 'User not found' };
+    }
+
+    await queryRunner.query(
+      `INSERT INTO user_photos (user_id, photo) VALUES (?, ?)`,
+      [userId, file.buffer]
+    );
+
+    await queryRunner.commitTransaction();
+
+    return {
+      resp_code: 200,
+      message: 'Photo uploaded successfully'
+    };
+
+  } catch (error) {
+    await queryRunner.rollbackTransaction();
+    console.error(error);
+    return { resp_code: 500, message: 'Something went wrong' };
+  } finally {
+    await queryRunner.release();
+  }
+}
+
+async getUserPhotos(paginationDto: PhotoPaginationDto) {
+  const { page = 1, limit = 6 } = paginationDto;
+  const offset = (page - 1) * limit;
+
+  const queryRunner = this.dataSource.createQueryRunner();
+  await queryRunner.connect();
+
+  try {
+    const [photos, total] = await Promise.all([
+      queryRunner.query(
+        `SELECT id, photo FROM user_photos ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+        [limit, offset]
+      ),
+
+      queryRunner.query(`SELECT COUNT(*) as count FROM user_photos`),
+    ]);
+
+    // Convert buffer to base64 for mobile display
+    const formatted = photos.map((p) => ({
+      id: p.id,
+      image: `data:image/jpeg;base64,${p.photo.toString('base64')}`,
+    }));
+
+    return {
+      resp_code: 200,
+      data: formatted,
+      pagination: {
+        total: Number(total[0].count),
+        page,
+        limit,
+        totalPages: Math.ceil(total[0].count / limit),
+      },
+    };
+  } catch (e) {
+    console.log(e);
+    return { resp_code: 500, message: 'Failed to fetch photos' };
+  } finally {
+    await queryRunner.release();
+  }
+}
+
+
 }

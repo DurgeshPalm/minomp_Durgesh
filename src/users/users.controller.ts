@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UsePipes, ValidationPipe ,UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UsePipes, ValidationPipe ,UseGuards, UploadedFile,UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FindParentChildDto } from './dto/findParentChild.dto';
 import { AuthGuardGuard } from '../Global/auth-guard/auth-guard.guard'
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import {UploadPhotoDto} from './dto/upload-photo.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import * as multer from 'multer';
+import { PhotoPaginationDto } from './dto/photo-pagination.dto';
 
 @Controller('users')
 export class UsersController {
@@ -87,4 +92,34 @@ export class UsersController {
 async refreshToken(@Body() refreshtokendto: RefreshTokenDto ) {
   return this.usersService.refreshToken(refreshtokendto);
 }
+
+// @UseGuards(AuthGuardGuard)
+@Post('/upload-photo')
+  @UseInterceptors(FileInterceptor('photo',{ storage: multer.memoryStorage() }))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Upload user profile photo',
+    schema: {
+      type: 'object',
+      properties: {
+        userId: { type: 'number', example: 1 },
+        photo: {
+          type: 'string',
+          format: 'binary'
+        }
+      }
+    }
+  })
+  async uploadPhoto(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() uploadPhotoDto: UploadPhotoDto,
+  ) {
+    return this.usersService.uploadUserPhoto(uploadPhotoDto.userId, file);
+  }
+
+  @Post('/photos')
+async getUserPhotos(@Body() paginationDto: PhotoPaginationDto) {
+  return this.usersService.getUserPhotos(paginationDto);
+}
+
 }
