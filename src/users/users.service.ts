@@ -161,7 +161,7 @@ async login(
       ]);
 
       const { token, refreshToken } = await generateTokens(user);
-
+await queryRunner.commitTransaction(); 
       return {
         resp_code: RespStatusCodes.Success,
         data: [user],

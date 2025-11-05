@@ -11,6 +11,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import * as multer from 'multer';
 import { PhotoPaginationDto } from './dto/photo-pagination.dto';
+import { SkipApiLogging } from '../Global/decorators/skip-api-logging.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -117,6 +118,7 @@ async refreshToken(@Body() refreshtokendto: RefreshTokenDto ) {
     return this.usersService.uploadUserPhoto(uploadPhotoDto.userId, file);
   }
 
+  // @SkipApiLogging()
   @Post('/photos')
 async getUserPhotos(@Body() paginationDto: PhotoPaginationDto) {
   return this.usersService.getUserPhotos(paginationDto);

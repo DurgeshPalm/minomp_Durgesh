@@ -6,12 +6,17 @@ import {
 } from '@nestjs/common';
 import { Observable, tap, catchError } from 'rxjs';
 import { ErrorLogService } from '../../error-log/error-log.service';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class ApiLoggingInterceptor implements NestInterceptor {
-  constructor(private readonly errorLogService: ErrorLogService) {}
+  constructor(private readonly errorLogService: ErrorLogService,
+    // private readonly reflector: Reflector,
+  ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    // const skip = this.reflector.get<boolean>('skipApiLogging', context.getHandler());
+    // if (skip) return next.handle();
     const request = context.switchToHttp().getRequest();
     const { url, body, method } = request;  // Extract method
     let userId = request.user?.id || null; // Extract userId (assuming it's available via JWT)
