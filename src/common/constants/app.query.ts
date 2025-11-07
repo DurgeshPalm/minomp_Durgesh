@@ -10,7 +10,7 @@ export class QueryService {
  ProposalMapping = `INSERT INTO ${Tables.Table_ProposalMapping} (${TableProposalMappingEntity.kidId}, ${TableProposalMappingEntity.parentId}, ${TableProposalMappingEntity.proposalId}, ${TableProposalMappingEntity.status}, ${TableProposalMappingEntity.requestDatetime}) VALUES (?, ?, ?, ?, NOW())`
  addCustomReward = `INSERT INTO ${Tables.Table_CustomRewards} (${TableCustomRewardsEntity.rewardName}, ${TableCustomRewardsEntity.rewardIcon}, ${TableCustomRewardsEntity.userId}) values (?, ?, ?)`
  fetchRewardList = `SELECT ${TableRewardsEntity.rewardName}, ${TableRewardsEntity.rewardIcon} FROM ${Tables.Table_Rewards}  UNION all SELECT ${TableCustomRewardsEntity.rewardName}, ${TableCustomRewardsEntity.rewardIcon} AS reward_icon  FROM ${Tables.Table_CustomRewards} WHERE ${TableCustomRewardsEntity.userId} = ?`
- checkCountryCodeQuery = `SELECT 1 FROM ${Tables.Table_CountryCodes} WHERE ${TableCountryCodesEntity.id} = ? and ${TableCountryCodesEntity.isActive} = 1`;
+ checkCountryCodeQuery = `SELECT country_code FROM ${Tables.Table_CountryCodes} WHERE ${TableCountryCodesEntity.id} = ? and ${TableCountryCodesEntity.isActive} = 1`;
  checkUserMobilenoQuery = `SELECT id,role,password FROM ${Tables.Table_Users} WHERE ${TableUsersEntity.mobileNo} = ? and ${TableUsersEntity.isDeleted} = 0 `;
  checkUserEmailQuery = `SELECT id,role,password FROM ${Tables.Table_Users} WHERE ${TableUsersEntity.email} = ? and ${TableUsersEntity.isDeleted} = 0`;
  UserDeviceInfoQuery = `  INSERT INTO ${Tables.Table_Devices} (    ${TableDevicesEntity.userId},    ${TableDevicesEntity.deviceModel},    ${TableDevicesEntity.deviceType},${TableDevicesEntity.appVersion},${TableDevicesEntity.osVersion}  ) VALUES (?, ?, ?, ?, ?)`;
