@@ -11,6 +11,7 @@ import { LogExceptionFilter } from './Global/filters/log-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({
+    transform: true,
     exceptionFactory: (errors) => {
       const errorMessages = errors.map(
         (error) => error.constraints 

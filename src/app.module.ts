@@ -40,7 +40,7 @@ import { APP_GUARD } from '@nestjs/core';
   throttlers: [
     {
       name: 'otp',
-      limit: 2,
+      limit: 20,
       ttl: 10000,
     },
   ],

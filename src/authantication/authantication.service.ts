@@ -184,7 +184,7 @@ async verifyOtp({ userid, otp, new_password }: VerifyOtpDto & { new_password?: s
     return {
       resp_code: RespStatusCodes.Success,
       resp_message: LogMessage.otp_sent_successfully,
-      userid: otpResponse.userid,
+      userid: otpResponse.userid, 
       otp: otpResponse.otp, // ⚠️ remove in production
     };
   }
