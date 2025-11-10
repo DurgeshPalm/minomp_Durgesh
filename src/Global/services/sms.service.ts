@@ -23,6 +23,10 @@ export class SmsService {
       console.log(`SMS sent successfully to ${to}`);
     } catch (error) {
       console.error(`Error sending SMS: ${error.message}`);
+      console.log("SID:", process.env.ACCOUNT_SID_TWILIO);
+console.log("TOKEN:", process.env.AUTH_TOKEN_TWILIO);
+console.log("FROM:", process.env.TWILIO_PHONE_NUMBER);
+
       throw error;
     }
   }

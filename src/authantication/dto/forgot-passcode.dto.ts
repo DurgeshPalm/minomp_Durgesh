@@ -17,8 +17,5 @@ export class ForgotPasscodeDto {
     @IsOptional()
     country_code_id: number;
 
-    @IsNotEmpty()
-    @IsString()
-    @MinLength(6)
-    new_password: string;
+
 }

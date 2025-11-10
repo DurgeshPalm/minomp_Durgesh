@@ -13,6 +13,8 @@ import {
 import { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 import { ErrorLogService } from '../../error-log/error-log.service';
+import { ThrottlerException } from '@nestjs/throttler';
+
 
 @Catch()
 @Injectable()
@@ -25,6 +27,24 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+
+ if (exception instanceof ThrottlerException) {
+  await this.errorLogService.logApiCall(
+    request.url,
+    request.method,
+    request.body,
+    'Too Many Requests',
+    true,
+    (request as any).user?.id || null,
+  );
+
+  return response.status(429).json({
+    resp_code: 429,
+    resp_message: 'Too Many Requests',
+    errors: ['You have exceeded the allowed request limit. Try again later.'],
+  });
+}
+
     // Handle DTO validation errors
     if (exception instanceof BadRequestException) {
       const errorResponse = exception.getResponse() as {
@@ -84,6 +104,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         message: 'Something went wrong! Please try again later.',
       });
     }
+
+
 
     // Handle database errors (e.g., duplicate entries)
     if (exception instanceof QueryFailedError) {

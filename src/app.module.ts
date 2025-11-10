@@ -20,6 +20,8 @@ import { CronController } from './cron/cron.controller';
 import { CronService } from './cron/cron.service';
 import { CronModule } from './cron/cron.module';
 import { CommonModule } from './Global/services/common.module';
+import { ThrottlerModule,ThrottlerGuard  } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 
 @Module({
@@ -33,9 +35,24 @@ import { CommonModule } from './Global/services/common.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true, 
-    }),ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule, CronModule,CommonModule],
+    }),
+    ThrottlerModule.forRoot({
+  throttlers: [
+    {
+      name: 'otp',
+      limit: 2,
+      ttl: 10000,
+    },
+  ],
+})
+    ,ErrorLogModule, ProposalsModule, AuthanticationModule, NotificationsModule, FirebaseModule, TodosModule, CronModule,CommonModule],
   controllers: [AppController, NotificationsController, TodosController, CronController],
-  providers: [AppService, NotificationsService, TodosService, CronService],
+  providers: [AppService, NotificationsService, TodosService, CronService, 
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: ThrottlerGuard,
+    // },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

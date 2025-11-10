@@ -14,14 +14,21 @@ export class SendOtpDto {
   @IsNumber()
   country_code_id?: number;
 }
-export class VerifyOtpDto {
-    @IsNotEmpty()
-    @IsNumber()
-    userid: number;
 
-    @IsNotEmpty()
-    @IsString()
-    otp: string;
+export class VerifyOtpDto {
+  @IsNotEmpty()
+  @IsNumber()
+  userid: number;
+
+  @IsNotEmpty()
+  @IsString()
+  otp: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(6)
+  new_password?: string; // ✅ optional, used when resetting password
 }
+
 
 
