@@ -140,54 +140,86 @@ async getProposalList(proposalListDto: ProposalListDto): Promise<any> {
   await queryRunner.connect();
 
   try {
-      const offset = (page - 1) * rows;
+    const offset = (page - 1) * rows;
+    let query = '';
+    let params: any[] = [];
 
-      let query = `
-          SELECT 
-              p.id AS proposal_id,
-              p.proposal_name,
-              IF(p.reward_type = 'custom', cr.reward_name, r.reward_name) AS reward_name,
-              IF(p.reward_type = 'custom', cr.reward_icon, r.reward_icon) AS reward_icon,
-              p.is_received_reward AS reward_received_status,
-              p.status AS proposal_status,
-              p.start_datetime,
-              p.end_datetime,
-              u.username AS createdby
-          FROM proposals p
-          LEFT JOIN users u ON p.user_id = u.id
-          LEFT JOIN rewards r ON p.reward_id = r.id AND p.reward_type = 'admin'
-          LEFT JOIN custome_rewards cr ON p.reward_id = cr.id AND p.reward_type = 'custom'
-          WHERE p.user_id = ?
-          AND p.is_deleted = 0
+    if (role === 'C') {
+      // ✅ Child: proposals created by the child (existing logic)
+      query = `
+        SELECT 
+            p.id AS proposal_id,
+            p.proposal_name,
+            IF(p.reward_type = 'custom', cr.reward_name, r.reward_name) AS reward_name,
+            IF(p.reward_type = 'custom', cr.reward_icon, r.reward_icon) AS reward_icon,
+            p.is_received_reward AS reward_received_status,
+            p.status AS proposal_status,
+            p.start_datetime,
+            p.end_datetime,
+            u.username AS createdby
+        FROM proposals p
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN rewards r ON p.reward_id = r.id AND p.reward_type = 'admin'
+        LEFT JOIN custome_rewards cr ON p.reward_id = cr.id AND p.reward_type = 'custom'
+        WHERE p.user_id = ?
+        AND p.is_deleted = 0
       `;
-
-      const params: any[] = [userid];
+      params = [userid];
 
       if (proposal_status) {
-          query += ' AND p.status = ?';
-          params.push(proposal_status);
+        query += ' AND p.status = ?';
+        params.push(proposal_status);
       }
 
       query += ' ORDER BY p.created_date DESC LIMIT ? OFFSET ?';
       params.push(rows, offset);
+    } 
+    
+    else if (role === 'P') {
+      // ✅ Parent: proposals sent to this parent (via proposal_mapping)
+      query = `
+        SELECT 
+            p.id AS proposal_id,
+            p.proposal_name,
+            IF(p.reward_type = 'custom', cr.reward_name, r.reward_name) AS reward_name,
+            IF(p.reward_type = 'custom', cr.reward_icon, r.reward_icon) AS reward_icon,
+            p.is_received_reward AS reward_received_status,
+            p.status AS proposal_status,
+            p.start_datetime,
+            p.end_datetime,
+            u.username AS createdby,
+            pm.status AS mapping_status
+        FROM proposals p
+        INNER JOIN proposal_mapping pm ON pm.proposal_id = p.id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN rewards r ON p.reward_id = r.id AND p.reward_type = 'admin'
+        LEFT JOIN custome_rewards cr ON p.reward_id = cr.id AND p.reward_type = 'custom'
+        WHERE pm.parent_id = ?
+        AND p.is_deleted = 0
+        ORDER BY p.created_date DESC
+        LIMIT ? OFFSET ?
+      `;
+      params = [userid, rows, offset];
+    }
 
-      const proposals = await queryRunner.query(query, params);
+    const proposals = await queryRunner.query(query, params);
 
-      return {
-          resp_code: RespStatusCodes.Success,
-          resp_message: RespDesc.Success,
-          data: proposals,
-      };
+    return {
+      resp_code: RespStatusCodes.Success,
+      resp_message: RespDesc.Success,
+      data: proposals,
+    };
   } catch (error) {
-      return {
-          resp_code: RespStatusCodes.Failed,
-          resp_message: RespDesc.Failed,
-          error: error.message,
-      };
+    return {
+      resp_code: RespStatusCodes.Failed,
+      resp_message: RespDesc.Failed,
+      error: error.message,
+    };
   } finally {
-      await queryRunner.release();
+    await queryRunner.release();
   }
 }
+
 
 async editProposal(editProposalDto: EditProposalDto): Promise<any> {
   const { proposal_id, userid, proposal_name, start_datetime, end_datetime } = editProposalDto;
