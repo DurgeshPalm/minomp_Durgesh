@@ -1,0 +1,2087 @@
+{
+	"info": {
+		"_postman_id": "073a438f-eb64-479a-b1dc-ef60c8d06a9e",
+		"name": "minomp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40245098"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Beena5\",\r\n  \"email\": \"Beena5@example.com\",\r\n  \"password\": \"password123\",\r\n  \"mobileno\": \"\",\r\n  \"country_code_id\": \"\",\r\n  \"role\": \"C\",\r\n  \"connectionid\":\"28\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/createUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"createUser"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"A1\",\r\n  \"email\": \"\",\r\n  \"password\": \"A1@123\",\r\n  \"mobileno\": \"1234567990\",\r\n  \"country_code_id\": 14,\r\n  \"role\": \"P\",\r\n  \"connectionid\":\"\"\r\n}\r\n\r\n\r\n\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"users",
+								"createUser"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "235"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"eb-OYg6vIuLG5kvonQvkf6tnVHxNLY\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Oct 2025 05:18:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"message\": \"User created successfully \",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsImlhdCI6MTc2MTcxNTA5NiwiZXhwIjoxNzYxNzE4Njk2fQ.-W6yVTMGI3Tajm16Vx1WuZMh-4k1dS5g2HWx00AQyrw\",\n    \"userId\": 73,\n    \"role\": \"P\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQsImVtYWlsIjoiIiwibW9iaWxlbm8iOiI2MjYxNTQxOTM4Iiwicm9sZSI6IlAiLCJpYXQiOjE3NjIyNTM0NTIsImV4cCI6MTc2MjI1NzA1Mn0.kSgtV-Em_wlFWyBew4B73QoSdQhelg95uvoafijBVYs",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"H4@gmail.com\",\r\n    \"password\": \"H4@123\",\r\n    \"mobileno\":\"\",\r\n    \"country_code_id\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQsImVtYWlsIjoiIiwibW9iaWxlbm8iOiI2MjYxNTQxOTM4Iiwicm9sZSI6IlAiLCJpYXQiOjE3NjIyNTM0NTIsImV4cCI6MTc2MjI1NzA1Mn0.kSgtV-Em_wlFWyBew4B73QoSdQhelg95uvoafijBVYs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"A9@123\",\r\n    \"mobileno\":\"6261541939\",\r\n    \"country_code_id\":\"13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "X-Request-ID",
+							"value": "e4404111-6057-4a1f-9a08-e75ae60c0f9b"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "geolocation=(), midi=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), fullscreen=()"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "458"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1ca-nn+a2DGeyapcO3bJbBhxq79t/Fk\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Nov 2025 11:15:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"data\": [\n        {\n            \"id\": 95,\n            \"role\": \"P\",\n            \"password\": \"$2b$10$DHHtqB5r1o.tpUBw8CZfB./2z3Ng09yFmhSTgLjkmrPDdOHW3I0EO\"\n        }\n    ],\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTUsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjU0OTQwLCJleHAiOjE3NjIyNTg1NDB9.CTyFGdtEf4cQW0oGr1QTg4HAJkO2cj_SQjkj_1prbH4\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTUsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjU0OTQwLCJleHAiOjE3NjI4NTk3NDB9.c57_ecHw82g8wNJTpIB2hUKxlOvv_024Kut-0zxAAA8\"\n}"
+				},
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQsImVtYWlsIjoiIiwibW9iaWxlbm8iOiI2MjYxNTQxOTM4Iiwicm9sZSI6IlAiLCJpYXQiOjE3NjIyNTM0NTIsImV4cCI6MTc2MjI1NzA1Mn0.kSgtV-Em_wlFWyBew4B73QoSdQhelg95uvoafijBVYs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"H4@gmail.com\",\r\n    \"password\": \"H4@123\",\r\n    \"mobileno\":\"\",\r\n    \"country_code_id\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "X-Request-ID",
+							"value": "4e266616-a020-46e2-bf33-950552192af3"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Permissions-Policy",
+							"value": "geolocation=(), midi=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), fullscreen=()"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "463"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1cf-OAb671HXEtM/eDmIYXqILH6HhKg\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 11 Nov 2025 12:11:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"data\": [\n        {\n            \"id\": 112,\n            \"role\": \"P\",\n            \"password\": \"$2b$10$J2XZdadCLG/xdKKwxHnPIORvWf.FE4xsErEQf7trTv5w8kxBLqafe\"\n        }\n    ],\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyLCJyb2xlIjoiUCIsImlhdCI6MTc2Mjg2MzA5NywiZXhwIjoxNzYyODY2Njk3fQ.6HZdL3-XTjXEFYqO__GNWJ2J_HgKvNIZV-03JN6yTO0\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyLCJyb2xlIjoiUCIsImlhdCI6MTc2Mjg2MzA5NywiZXhwIjoxNzYzNDY3ODk3fQ.NHowfdIDzXZ7FmONBRE8rj6nyDfc1dTGQWUbgfD79CU\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetCountryCodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3367/users/getCountryCode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"getCountryCode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3367/users/deleteUser/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"deleteUser",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createProposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"proposal_name\": \"Study Time\",\r\n  \"reward_id\": 10,\r\n  \"reward_name\":\"\",\r\n  \"start_datetime\": \"2025-11-11 18:20:00\",\r\n    \"end_datetime\": \"2025-11-11 18:55:00\",\r\n  \"status\": \"pending\",\r\n  \"userid\": 110\r\n}\r\n\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "createProposal",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"proposal_name\": \"Study Time\",\r\n  \"reward_id\": 10,\r\n  \"reward_name\":\"\",\r\n  \"start_datetime\": \"2025-11-11 18:20:00\",\r\n    \"end_datetime\": \"2025-11-11 18:55:00\",\r\n  \"status\": \"pending\",\r\n  \"userid\": 110\r\n}\r\n\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"create"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "192"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c0-hDfryJJh5EZH6pv1Bzf0KitSTG0\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 11 Nov 2025 12:03:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Proposal created successfully\",\n    \"userid\": 110,\n    \"proposal_id\": 20,\n    \"proposal_name\": \"Study Time\",\n    \"parent_id\": 112,\n    \"reward_id\": 10,\n    \"minomp_time\": 2100,\n    \"break_time\": 630\n}"
+				}
+			]
+		},
+		{
+			"name": "getRewards",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/getRewards?userid=30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"getRewards"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SendOtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n //\"email\":\"vaishali.palminfotech@gmail.com\", // remove or comment email if sent otp via number\r\n  \"mobileno\": \"6264240289\",\r\n  \"country_code_id\": 12\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/authantication/send_otp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"authantication",
+						"send_otp"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SendOtp",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vaishali.palminfotech@gmail.com\",\r\n  \"mobileno\": \"\",\r\n  \"country_code_id\": \"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/authantication/send_otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"authantication",
+								"send_otp"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "93"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5d-4DGXMj4qA93aM7oY53yzh4vrZcI\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Oct 2025 06:40:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"OTP sent successfully\",\n    \"otp_message\": \"266074\",\n    \"userid\": 39\n}"
+				},
+				{
+					"name": "SendOtp",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n //\"email\":\"vaishali.palminfotech@gmail.com\", // remove or comment email if sent otp via number\r\n  \"mobileno\": \"6264240289\",\r\n  \"country_code_id\": 12\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/authantication/send_otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"authantication",
+								"send_otp"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "70"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"46-U2glql5xjZZn6KYyTNrHyIhinyQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 07 Nov 2025 05:43:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"OTP sent successfully\",\n    \"userid\": 52\n}"
+				}
+			]
+		},
+		{
+			"name": "VerifyOTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 31,\r\n  \"otp\": \"589268\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/authantication/verify_otp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"authantication",
+						"verify_otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find_parent_child",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\",\r\n  \"email\": \"\",\r\n  \"mobileno\": \"\",\r\n  \"role\": \"C\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/find_parent_child",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"find_parent_child"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgot-passscode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"G1@gmail.com\",\r\n  \"mobileno\": \"\",\r\n  \"country_code_id\": \"\",\r\n  \"new_password\": \"newSecurePass123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/authantication/forgot_passcode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"authantication",
+						"forgot_passcode"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "forgot-passscode",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"G1@gmail.com\",\r\n  \"mobileno\": \"\",\r\n  \"country_code_id\": \"\",\r\n  \"new_password\": \"newSecurePass123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/authantication/forgot_passcode",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"authantication",
+								"forgot_passcode"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "120"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"78-C8AXpKRUoBWXer2VCejDF/tXGo4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Nov 2025 04:56:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"OTP sent successfully\",\n    \"userid\": 101,\n    \"otp\": \"750826\",\n    \"new_password\": \"newSecurePass123\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ProposalList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 110,\r\n  \"role\": \"C\",\r\n  \"proposal_status\": \"Pending\",\r\n  \"page\": 1,\r\n  \"rows\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/proposal_list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"proposal_list"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ProposalList",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userid\": 110,\r\n  \"role\": \"C\",\r\n  \"proposal_status\": \"Pending\",\r\n  \"page\": 1,\r\n  \"rows\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/proposal_list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"proposal_list"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "323"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"143-H/NH/ZbP6iqaTMKDHq9hpxVxEkA\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 11 Nov 2025 12:08:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Success\",\n    \"data\": [\n        {\n            \"proposal_id\": 20,\n            \"proposal_name\": \"Study Time\",\n            \"reward_name\": \"Diamond Badge\",\n            \"reward_icon\": \"diamond_badge.png\",\n            \"reward_received_status\": 0,\n            \"proposal_status\": \"pending\",\n            \"start_datetime\": \"2025-11-11T12:50:00.000Z\",\n            \"end_datetime\": \"2025-11-11T13:25:00.000Z\",\n            \"createdby\": \"J1\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "edit_proposal",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"proposal_id\": 15,\r\n  \"userid\": 30,\r\n  \"proposal_name\": \"Updated Study Time\",\r\n  \"start_datetime\": \"2025-04-02 09:00:00\",\r\n  \"end_datetime\": \"2025-04-02 11:00:00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/edit_proposal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"edit_proposal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_proposal",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 28,\r\n  \"proposal_id\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/delete_proposal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"delete_proposal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Acept_Reject",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsIm1vYmlsZW5vIjoiNjI2MTU0OTEzMyIsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjMxNDk5LCJleHAiOjE3NjIyMzUwOTl9.IM09GoSSZrLF9WzWhybswcrUr0TIvwo3iC8Qf1Z8QP0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 85,\r\n  \"proposal_id\": 17,\r\n  \"proposal_status\": \"accepted\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/accept-reject",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"accept-reject"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Acept_Reject",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsIm1vYmlsZW5vIjoiNjI2MTU0OTEzMyIsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjMxNDk5LCJleHAiOjE3NjIyMzUwOTl9.IM09GoSSZrLF9WzWhybswcrUr0TIvwo3iC8Qf1Z8QP0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userid\": 85,\r\n  \"proposal_id\": 17,\r\n  \"proposal_status\": \"accepted\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/accept-reject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"accept-reject"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "137"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"89-WGBJ/fiYMKXQDyOYwjoaNdb9fd4\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Nov 2025 05:03:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Proposal accepted successfully\",\n    \"proposal_sender_id\": 87,\n    \"proposal_id\": 17,\n    \"proposal_status\": \"accepted\"\n}"
+				},
+				{
+					"name": "Acept_Reject",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTAsImVtYWlsIjpudWxsLCJtb2JpbGVubyI6IjYyNjE1NDE5MzYiLCJyb2xlIjoiUCIsImlhdCI6MTc2MjI1NTA2MCwiZXhwIjoxNzYyMjU1OTYwfQ.xwQ_uCBgXqRx6mdvocYvAjL12v6Bqzxh_Y3PlNABAHo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userid\": 90,\r\n  \"proposal_id\": 19,\r\n  \"proposal_status\": \"accepted\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/accept-reject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"accept-reject"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "137"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"89-J7kiTr452dGts3KQSiFmnGC1/vA\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Nov 2025 11:18:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Proposal accepted successfully\",\n    \"proposal_sender_id\": 89,\n    \"proposal_id\": 19,\n    \"proposal_status\": \"accepted\"\n}"
+				},
+				{
+					"name": "Acept_Reject",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyLCJyb2xlIjoiUCIsImlhdCI6MTc2Mjg2MzA5NywiZXhwIjoxNzYyODY2Njk3fQ.6HZdL3-XTjXEFYqO__GNWJ2J_HgKvNIZV-03JN6yTO0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userid\": 112,\r\n  \"proposal_id\": 20,\r\n  \"proposal_status\": \"accepted\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/accept-reject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"accept-reject"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "138"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8a-AQW3ILGoeUhPOO8huQKLZkczV74\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 11 Nov 2025 12:12:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Proposal accepted successfully\",\n    \"proposal_sender_id\": 110,\n    \"proposal_id\": 20,\n    \"proposal_status\": \"accepted\"\n}"
+				}
+			]
+		},
+		{
+			"name": "reward_received_status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 28,\r\n  \"proposal_id\": 3,\r\n  \"reward_received_status\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/reward-received-status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"reward-received-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "proposalDetail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"proposal_id\":2,\r\n    \"status\":\"pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/getProposalDetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"getProposalDetail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"proposal_id\":21,\r\n    \"status\":\"rejected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/proposals/getProposalDetail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"proposals",
+								"getProposalDetail"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "329"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"149-tW5AmriMfauP8vuRWnf9eefbGk8\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 12 Nov 2025 12:40:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": 200,\n    \"resp_message\": \"Proposal details fetched successfully\",\n    \"data\": {\n        \"proposal_name\": \"Proposal\",\n        \"reward_name\": \"Silver Medal\",\n        \"reward_icon\": \"silver_medal.png\",\n        \"reward_received_status\": 0,\n        \"proposal_status\": \"rejected\",\n        \"start_datetime\": \"2025-11-11T15:20:00.000Z\",\n        \"end_datetime\": \"2025-11-11T15:25:00.000Z\",\n        \"createdby\": \"J1\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "time-track",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"proposal_id\": 15,\r\n  \"userid\": 39,\r\n  \"start_datetime\": \"2025-03-31 20:00:00\",\r\n  \"end_datetime\": \"2025-03-31 20:10:00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/proposals/time-track",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"proposals",
+						"time-track"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendNotification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"fw9yPFgYQdaCwDznpzKYWU:APA91bEubY79ttLfgizmFJranHBfDn-DRmhSMPxc-I0ShU4AinwfOsYqzzD-wCFqUG-eO_Fd76lWhS57J962QEEfz1tjBOVXN-XB5TeKeowVCFvarXSH6LU\",\r\n  \"title\": \"Hello Durgesh!\",\r\n  \"body\": \"This is a test push from NestJS API\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/notifications/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"notifications",
+						"send"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "sendNotification",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"fw9yPFgYQdaCwDznpzKYWU:APA91bEubY79ttLfgizmFJranHBfDn-DRmhSMPxc-I0ShU4AinwfOsYqzzD-wCFqUG-eO_Fd76lWhS57J962QEEfz1tjBOVXN-XB5TeKeowVCFvarXSH6LU\",\r\n  \"title\": \"Hello Durgesh!\",\r\n  \"body\": \"This is a test push from NestJS API\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/notifications/send",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"notifications",
+								"send"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "128"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"80-1daCq2wxPbCsBc6+RTxHZL+EVmc\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Oct 2025 05:26:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Success\",\n    \"data\": [\n        {\n            \"title\": \"Hello Durgesh!\",\n            \"message\": \"This is a test push from NestJS API\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "GetTodos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"page\": 3,\r\n  \"limit\": 10\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/todos/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"todos",
+						"list"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3367/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "189"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"bd-PMBkUlPF1M3sdG5vpIQSZBwMgWI\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Oct 2025 10:51:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": 1,\n    \"resp_message\": \"Todos fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Buy groceries\",\n            \"description\": \"Milk, eggs, bread\",\n            \"completed\": 0,\n            \"created_at\": \"2025-10-14T06:03:38.000Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "CreateTodo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Learn React Native\",\r\n  \"description\": \"Understand hooks, navigation, and animations\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Learn React Native\",\r\n  \"description\": \"Understand hooks, navigation, and animations\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3a-b3GwUgkxB+cvhzFPze2cblMoaR4\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Oct 2025 10:54:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": 1,\n    \"resp_message\": \"Todo created successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "CronMessage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"recipients\": [\"user1@example.com\",\"user2@example.com\"],\r\n  \"subject\": \"Scheduled Update\",\r\n  \"text\": \"This is an automated message from Minomp.\",\r\n  \"html\": \"<p>This is an automated message from <strong>Minomp</strong>.</p>\",\r\n  \"enabled\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/cron/config",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"cron",
+						"config"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"recipients\": [\"user1@example.com\",\"user2@example.com\"],\r\n  \"subject\": \"Scheduled Update\",\r\n  \"text\": \"This is an automated message from Minomp.\",\r\n  \"html\": \"<p>This is an automated message from <strong>Minomp</strong>.</p>\",\r\n  \"enabled\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/cron/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"cron",
+								"config"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "279"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"117-Ytoehplrw99KBd2ZQ2LFDREyn5Y\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 01 Nov 2025 07:49:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"ok\",\n    \"message\": \"Cron config saved\",\n    \"data\": {\n        \"recipients\": [\n            \"user1@example.com\",\n            \"user2@example.com\"\n        ],\n        \"subject\": \"Scheduled Update\",\n        \"text\": \"This is an automated message from Minomp.\",\n        \"html\": \"<p>This is an automated message from <strong>Minomp</strong>.</p>\",\n        \"enabled\": true\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "EnableDisableCron",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"enabled\": false }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/cron/enable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"cron",
+						"enable"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"enabled\": false }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/cron/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"cron",
+								"enable"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f-VJrNbIetwpjcvMggkuWyDCVRGYA\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 01 Nov 2025 07:51:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"ok\",\n    \"enabled\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "RefreshToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"userId\":90,\r\n\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTAsImVtYWlsIjoiIiwibW9iaWxlbm8iOiI2MjYxNTQxOTM2Iiwicm9sZSI6IlAiLCJpYXQiOjE3NjIyNDE0NjAsImV4cCI6MTc2Mjg0NjI2MH0.UuP8GQ4iQzfLnMQEUIip7GK0Dw_KrFxc0o7YG4-Ktl4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/refresh-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"refresh-token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"userId\":90,\r\n\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTAsImVtYWlsIjoiIiwibW9iaWxlbm8iOiI2MjYxNTQxOTM2Iiwicm9sZSI6IlAiLCJpYXQiOjE3NjIyNDE0NjAsImV4cCI6MTc2Mjg0NjI2MH0.UuP8GQ4iQzfLnMQEUIip7GK0Dw_KrFxc0o7YG4-Ktl4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/users/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"users",
+								"refresh-token"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "518"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"206-sonHEOUP2D9LdCog2JXv3+ocTpU\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Nov 2025 08:58:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"message\": \"Token refreshed successfully\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTAsImVtYWlsIjpudWxsLCJtb2JpbGVubyI6IjYyNjE1NDE5MzYiLCJyb2xlIjoiUCIsImlhdCI6MTc2MjI0NjcxOSwiZXhwIjoxNzYyMjQ3NjE5fQ.JACtihQTvFZcXO6OktHV2lCumI-xiEIBjWzqVeYwOww\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTAsImVtYWlsIjpudWxsLCJtb2JpbGVubyI6IjYyNjE1NDE5MzYiLCJyb2xlIjoiUCIsImlhdCI6MTc2MjI0NjcxOSwiZXhwIjoxNzYyODUxNTE5fQ.FIwkG53ypaiyXbcdU27Q66kyTxgV_LpEyiFdcGzV49Q\",\n    \"userId\": 90,\n    \"role\": \"P\"\n}"
+				}
+			]
+		},
+		{
+			"name": "UploadPhoto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsIm1vYmlsZW5vIjoiNjI2MTU0OTEzMyIsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjMxNDk5LCJleHAiOjE3NjIyMzUwOTl9.IM09GoSSZrLF9WzWhybswcrUr0TIvwo3iC8Qf1Z8QP0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "90",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/C:/Users/pc/Pictures/15 pro.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/upload-photo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"upload-photo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPhotos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsIm1vYmlsZW5vIjoiNjI2MTU0OTEzMyIsInJvbGUiOiJQIiwiaWF0IjoxNzYyMjMxNDk5LCJleHAiOjE3NjIyMzUwOTl9.IM09GoSSZrLF9WzWhybswcrUr0TIvwo3iC8Qf1Z8QP0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\":1,\r\n    \"limit\":6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/users/photos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"users",
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ResetPassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": 101,\r\n  \"new_password\": \"SecurePass@123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3367/authantication/reset_password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3367",
+					"path": [
+						"authantication",
+						"reset_password"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userid\": 101,\r\n  \"new_password\": \"SecurePass@123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3367/authantication/reset_password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3367",
+							"path": [
+								"authantication",
+								"reset_password"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "66"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"42-YjUbkFULh+tLvDz341a0yuxg+YU\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Nov 2025 06:22:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resp_code\": \"000\",\n    \"resp_message\": \"Password updated successfully\"\n}"
+				}
+			]
+		}
+	]
+}
